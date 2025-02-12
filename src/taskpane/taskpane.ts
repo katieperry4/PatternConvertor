@@ -52,10 +52,20 @@ export async function convertPattern() {
         }
         writtenPattern.unshift(currentRow.join(" , "));
       }
-      console.log(writtenPattern.join("\n"));
-      const outputRange = sheet.getRange("A54");
-      outputRange.values = [[writtenPattern.join("\n")]];
+      const outputStartRow = values.length + 5;
+      let outputRange = sheet.getRange(`B${outputStartRow}:B${outputStartRow + writtenPattern.length - 1}`);
+      let rowCounterRange = sheet.getRange(`A${outputStartRow}:A${outputStartRow + writtenPattern.length - 1}`);
+
+      let outputArray = writtenPattern.map((row, index) => [row]);
+      let rowNumbers = writtenPattern.map((_, index) => [index + 1]);
+
+      outputRange.values = outputArray;
+      rowCounterRange.values = rowNumbers;
+
       outputRange.format.autofitColumns();
+      outputRange.format.autofitRows();
+      rowCounterRange.format.autofitColumns();
+      rowCounterRange.format.autofitRows();
     });
   } catch (error) {
     console.log("there was an error" + error);
