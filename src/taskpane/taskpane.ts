@@ -56,7 +56,7 @@ export async function convertPattern() {
       let outputRange = sheet.getRange(`B${outputStartRow}:B${outputStartRow + writtenPattern.length - 1}`);
       let rowCounterRange = sheet.getRange(`A${outputStartRow}:A${outputStartRow + writtenPattern.length - 1}`);
 
-      let outputArray = writtenPattern.map((row, index) => [row]);
+      let outputArray = writtenPattern.map((row) => [row]);
       let rowNumbers = writtenPattern.map((_, index) => [index + 1]);
 
       outputRange.values = outputArray;
